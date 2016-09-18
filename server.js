@@ -1,5 +1,7 @@
-var express = require('express');
-var morgan = require('morgan');
+
+// Imports
+var express = require('express'); // To manage the webserver like listenting on port
+var morgan = require('morgan'); // To help us output logs on server 
 var path = require('path');
 
 var app = express();
