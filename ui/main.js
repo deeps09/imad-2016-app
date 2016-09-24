@@ -1,8 +1,66 @@
-console.log('Loaded!');
+
+
+var button = document.getElementById("counter_btn");
+
+button.onclick = function() {
+
+	// create a request object
+	var request = new XMLHttpRequest();
+
+	// capture the response and store it in a variable
+	request.onreadystatechange = function() {
+		if (request.readyState === XMLHttpRequest.DONE) {
+
+			if (request.status === 200) {
+				var counter = request.responseText;
+				var span = document.getElementById("count");
+				span.innerHTML = counter.toString();
+			}
+		}
+	};
+
+	request.open('GET', 'http://localhost:8080/counters', true);
+	request.send(null);
+
+};
+
+var sumbit = document.getElementById("submit_btn");
+
+sumbit.onclick = function() {
+	var namebox = document.getElementById("name");
+	var name = namebox.value;
+/*	var names = ['name1', 'name2', 'name3', 'name4', 'name5'];
+	var list = '';*/
+	var list = [];
+	var request = new XMLHttpRequest();
+
+	// capture the response and store it in a variable
+	request.onreadystatechange = function() {
+		if (request.readyState === XMLHttpRequest.DONE) {
+
+			if (request.status === 200) {
+				var names = request.responseText;
+				names = JSON.parse(names);
+				for (var i = 0; i < names.length ; i++) {
+					list = list + '<li>' + names[i] + '</li>';
+				}
+
+				var namelist = document.getElementById('nameList');
+				namelist.innerHTML = list;
+			}
+		}
+	}
+
+	request.open('GET', 'http://localhost:8080/submit-name?name=' + name, true);
+	request.send(null);
+};
+
+
+/*console.log('Loaded!');
 
 // Change the text
 var element = document.getElementById("main-text");
-element.innerHTML = "This is changed by Javascript";
+//element.innerHTML = "This is changed by Javascript";
 
 element;
 
@@ -43,3 +101,4 @@ img.onclick = function() {
 		
 	}
 };
+*/

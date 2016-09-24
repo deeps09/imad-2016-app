@@ -105,10 +105,24 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+var counter = 0;
+app.get('/counters', function (req, res) {
+	counter = counter + 1;
+	res.send(counter.toString());
+});
+
+var namelist = [];
+app.get ('/submit-name', function(req, res) {
+	var name = req.query.name; // fetching name value from query
+	namelist.push(name);
+	res.send(JSON.stringify(namelist));
+});
+
 app.get ('/:articleName', function(req, res){
 	var articleName = req.params.articleName;
 	res.send(createTemplate(articles[articleName]));
 });
+
 
 /*
 app.get('/article-one', function (req, res){
