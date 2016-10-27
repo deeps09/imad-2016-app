@@ -3,9 +3,20 @@
 var express = require('express'); // To manage the webserver like listenting on port
 var morgan = require('morgan'); // To help us output logs on server 
 var path = require('path');
+var Pool = require('pg').Pool;
+
+var config = {
+	user: 'deeps09',
+	database: 'deeps09',
+	host: 'db.imad.hasura-app.io',
+	port: '5432',
+	password: process.env.DB_PASSWORD
+};
 
 var app = express();
 app.use(morgan('combined'));
+
+
 
 var articles = {
 	'article-one' : {
@@ -100,6 +111,17 @@ function createTemplate (data){
 
 	return htmlTemplate;
 }
+
+var pool = new Pool(config);
+app.get('/test-db', function(req, res){
+	pool.query('SELECT * FROM test', function(err, result){
+		if (err) {
+			res.status(500).send(err.toString());
+		} else{
+			res.send(JSON.stringify(result));
+		}
+	});
+});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
