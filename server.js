@@ -125,13 +125,13 @@ app.get('/test-db', function(req, res){
 });
 
 app.get('/hash/:input', function (req, res){
-    var hashedString = hash(req.params.input, salt);
+    var hashedString = hash(req.params.input, 'This is some random value');
     res.send(hashedString);
 });
 
 function hash (input, salt){
     var hashed = crypto.pdkdf2Sync(input, salt, 10000, 512, 'sha512');
-    return hashed;
+    return hashed.toString('hex');
 }
 
 app.get('/', function (req, res) {
