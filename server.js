@@ -4,6 +4,7 @@ var express = require('express'); // To manage the webserver like listenting on 
 var morgan = require('morgan'); // To help us output logs on server 
 var path = require('path');
 var Pool = require('pg').Pool;
+var crypto = require('crypto');
 
 var config = {
 	user: 'deeps09',
@@ -122,6 +123,16 @@ app.get('/test-db', function(req, res){
 		}
 	});
 });
+
+app.get('/hash:input', function (req, res){
+    var hashedString = hash(req.params.input, salt);
+    res.send(hashedString);
+});
+
+function hash (input, salt){
+    var hashed = crypto.pdkdf2Sync(input, salt, 10000, 512, 'sha512');
+    return hashed;
+}
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
