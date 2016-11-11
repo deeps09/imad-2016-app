@@ -124,7 +124,7 @@ app.get('/test-db', function(req, res){
 	});
 });
 
-app.get('/hash:input', function (req, res){
+app.get('/hash/:input', function (req, res){
     var hashedString = hash(req.params.input, salt);
     res.send(hashedString);
 });
