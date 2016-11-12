@@ -156,6 +156,7 @@ app.post('/login', function (err, result){
 	       }else{
 	           var dbString = result.rows[0].password;
 	           var salt = dbString.split('$')[2];
+	           console.log(salt);
 	           var hashedPassword = hash(password, salt);
 	           if   (hashedPassword == dbString){
 	               res.send("Login successfull !");
