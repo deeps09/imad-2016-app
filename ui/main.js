@@ -56,6 +56,41 @@ sumbit.onclick = function() {
 };
 
 
+// Submit username/password to login
+var sumbitBtn = document.getElementById("submit_btn");
+
+submitBtn.onClick = function(){
+    
+    // create a request object
+    var request = new XMLHttpRequest();
+    
+    request.onreadystatechange = function () {
+      if (request.readystate === XMLHttpRequest.DONE){
+        
+        if (request.status === 200){
+            console.log("User logged on successfully");
+            alert('Login Successfull !');
+        } else if (request.status === 403){
+            console.log("Invalid username/password");
+            alert('Login Un-successfull !');
+        } else if (request.status === 500){
+            alert('Something went wrong on server !');
+        }
+      }
+    };
+    
+    
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+console.log("Username = " + username + "," + "Password =" + password);
+
+request.open('POST', 'http://deeps09.imad.hasura-app.io/login', true);
+request.setRequestHeader('Content-Type', 'application/json');
+request.send(JSON.stringify({username: username, password: password}));
+
+
+};
+
 /*console.log('Loaded!');
 
 // Change the text
