@@ -187,6 +187,10 @@ app.get('/check-login', function(req, res){
     }
 });
 
+app.get('/logoff', function (req, res){
+   delete req.session.auth; 
+});
+
 app.get('/hash/:input', function (req, res){
     var hashedString = hash(req.params.input, 'This is some random value');
     res.send(hashedString);
