@@ -57,9 +57,9 @@ sumbit.onclick = function() {
 
 
 // Submit username/password to login
-var sumbitBtn = document.getElementById("submit_btn");
+var sumbitBtn = document.getElementById('submit_btn');
 
-submitBtn.onClick = function(){
+submitBtn.onclick = function(){
     
     // create a request object
     var request = new XMLHttpRequest();
