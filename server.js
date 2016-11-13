@@ -187,8 +187,9 @@ app.get('/check-login', function(req, res){
     }
 });
 
-app.get('/logoff', function (req, res){
+app.get('/logout', function (req, res){
    delete req.session.auth; 
+   res.send('Logged Out');
 });
 
 app.get('/hash/:input', function (req, res){
