@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
-    background-color: white;
-    margin-top: 75px;
+    background-color: #D5F5E3;
+    margin-top: 40px;
 }
 
 .center {
@@ -20,13 +20,114 @@ body {
     height: 200px;
 }
 
+hr {
+    border: 1.5px solid #2C3E50;
+    padding: 0px;
+}
+
+h1{
+    text-align: center;
+    font-size: 60px;
+    color: #A93226;
+    font-family: cursive;
+}
+
+h2{
+    font-size: 30px;
+    font: small;
+}
+
+h3{
+    text-align: center; 
+    margin-top: 2px;
+}
+
+input{
+    border-radius: 5px;
+    width: 150px;
+    height: 20px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 10px #fff;
+}
+
+textarea{
+    border-radius: 5px;
+    width: 99%;
+    font-size: 15px;
+    height: 120px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 10px #fff;
+}
+
+input[type="submit"]{
+    max-width: 140px;
+    border-radius: 5px;
+    width: 45%;
+    height: 25px;
+    box-shadow: 5px;
+}
+
+.left-menu{
+    max-width: 20%;
+    width: 18%;
+    float: left;
+    padding-left: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    border: 1px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #28B463;
+    clear: left;    
+}
+
+.center-menu{
+    max-width: 20%;
+    width: 18%;
+    padding-left: 75px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-right: 15px;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    border: 1px auto;
+    border-radius: 20px;
+    background: #28B463;
+}
+
+.menu{
+    float: left;
+    clear: left;
+}
+
+
 .container{
-	max-width: 800px;
+	max-width: 60%;
     margin: 0 auto;
-    color: #b01010;
+    color: #283747;
     font-family: sans-serif;
     padding-top: 10px;
     padding-left: 20px;
     padding-right: 20px;
+    background: #58D68D;
+    border: 2px solid;
+    border-radius: 15px;
+}
+
+.content{
+    max-width: 75%;
+    text-align: justify;
+    padding-left: 220px;
+    font: small-caption;
+}
+
+.left-menu-link{
+    font-size: 15px;
+    text-decoration: none;
 }
 

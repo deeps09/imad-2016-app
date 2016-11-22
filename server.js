@@ -13,7 +13,7 @@ var config = {
 	database: 'deeps09',
 	host: 'db.imad.hasura-app.io',
 	port: '5432',
-	password: process.env.DB_PASSWORD
+	password: 'db-deeps09-10060'
 };
 
 var app = express();
@@ -38,7 +38,7 @@ var articles = {
 	                from this forum.
 	            </p>
 	            
-	            <p>
+	            <p>	
 	                I have also enrolled myself for the certification exam being coonducted by IIT Madras.
 	                Such certification is very valuable for students who cannot directly qualify to study in these insititutions
 	                as they have very limited seats and ofcoure you have to be outstanding student to get admitted.
@@ -95,9 +95,9 @@ function createTemplate (data){
 			    	<div class="container">
 				        <div>
 				            <a href = "/">Home</a> &nbsp; &nbsp;
-				            <a href = "/article-one">Article One</a> &nbsp; &nbsp;
-				            <a href = "/article-two">Article Two</a> &nbsp; &nbsp;
-				            <a href = "/article-three">Article Three</a>
+            				<a href = "/articles/article-one">Article One</a> &nbsp; &nbsp;
+				            <a href = "/articles/article-two">Article Two</a> &nbsp; &nbsp;
+				            <a href = "/articles/article-three">Article Three</a>
 				        </div>
 				        <hr/>
 				        <h1>
@@ -119,6 +119,52 @@ function createTemplate (data){
 	return htmlTemplate;
 }
 
+function topicTemplate(topicId){
+	var title = topicId.page_title;
+	var heading = topicId.page_heading;
+	var content = topicId.page_content;
+
+	var webTemplate = `<html>
+    <head>
+        <link href="/ui/style.css" rel="stylesheet" />
+        <TITLE> ${heading}</TITLE>
+    </head>
+    <body>
+        <h1>
+            Welcome to Android Tutorials point !!   
+        </h1>
+
+        <div class="container">
+            <a href = "/">Home</a> &nbsp; &nbsp;
+            <a href = "articles/article-one">Article One</a> &nbsp; &nbsp;
+            <a href = "articles/article-two">Article Two</a> &nbsp; &nbsp;
+            <a href = "articles/article-three">Article Three</a>
+            <hr/>
+
+        <div class="left-menu">
+            <a href="/topics/activities">Activities</a> <br/> <br/>
+            <a href="">Fragments</a> <br/> <br/>
+            <a href="">Widgets</a> <br/> <br/>
+            <a href="">Content Provider</a> <br/> <br/>
+            <a href="">Shared Preferences</a> <br/> <br/>
+            <a href="">Basic Layouts</a> <br/> <br/>
+            <a href="">Views</a> <br/> <br/>
+        </div> 
+        	
+        <div class="content">
+        	<h2>${heading}</h2> 
+			${content}	
+        </div>  
+        <script type="text/javascript" src="/ui/main.js">
+        </script>
+    </div>
+    </body>
+</html>`
+
+return webTemplate;
+}
+
+
 var pool = new Pool(config);
 app.get('/test-db', function(req, res){
 	pool.query('SELECT * FROM test', function(err, result){
@@ -134,10 +180,12 @@ app.post('/create-user', function (req, res){
     
    var username = req.body.username;
    var password = req.body.password;
+   var emailId = req.body.email;
+   var flname = req.body.flname;
 
    var salt = crypto.randomBytes(128).toString('hex');
    var dbString = hash(password, salt);
-   pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function(err, result){
+   pool.query('INSERT INTO "user" (username, password, email_id, first_last_name) VALUES ($1, $2, $3, $4)', [username, dbString, emailId, flname], function(err, result){
       if (err){
 	       res.status(500).send(err.toString());
 	   } else {
@@ -203,7 +251,7 @@ function hash (input, salt){
 }
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+  res.sendFile(path.join(__dirname, 'ui', 'home.html'));
 });
 
 var counter = 0;
@@ -225,7 +273,7 @@ app.get ('/articles/:articleName', function(req, res){
 	   if (err){
 	       res.status(500).send(err.toString());
 	   } else {
-	       if   (result.rows.length === 0){
+	       if   (result.rows.length === 0){	
 	           res.status(400).send("No Article found");
 	       } else{
 	           var resData = result.rows[0];
@@ -233,7 +281,25 @@ app.get ('/articles/:articleName', function(req, res){
 	       }
 	   }
 	});
-	//res.send(createTemplate(articles[articleName]));
+});
+
+app.get ('/topics/:topicid', function(req, res){
+	var topicid = req.params.topicid;
+	pool.query("SELECT * FROM topics WHERE page_id = $1", [topicid], function(err, result){
+	   if (err){
+	       res.status(500).send(err.toString());
+	   } else {
+	       if   (result.rows.length === 0){	
+	           res.status(400).send("No Article found");
+	       } else{
+	           var resData = result.rows[0];
+	           res.send(topicTemplate(resData));
+	       }
+	   }
+	});
+});
+app.get ('/register', function(req, res){
+	res.sendFile(path.join(__dirname, 'ui', 'register.html'));
 });
 
 
@@ -260,6 +326,10 @@ app.get('/ui/madi.png', function (req, res) {
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
+});
+
+app.get('/home', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'home.html'));
 });
 
 // app.get('/ui/main.js', function (req, res) {
