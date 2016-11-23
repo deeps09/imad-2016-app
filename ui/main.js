@@ -92,7 +92,9 @@
 
 
 //Submit username/password to login from home page
-getLogin();	
+var loginForm = document.getElementById('login_form');
+loginForm.style.display = "display";
+	
 var loginBtn = document.getElementById("login_btn");
 
 loginBtn.onclick = function(){
@@ -105,10 +107,10 @@ loginBtn.onclick = function(){
         
         if (request.status === 200){
             console.log("User logged on successfully");
-            alert("Logged On");
+            //alert("Logged On");
             getLogin();
             //userinfo.innerHTML = httpGet('http://localhost:8080/check-login');
-            alert('Login Successfull !');
+            //alert('Login Successfull !');
         } else if (request.status === 403){
             console.log("Invalid username/password");
             alert('Login Un-successfull !');
@@ -148,10 +150,11 @@ function getLogin () {
 }
 
 var curUser = document.getElementById("user");
-var userInfo = document.getElementById("user-info");
-var logOffBtn = document.getElementById("logoff_btn");
+var userInfo = document.getElementById("userinfo");
+//var logOffBtn = document.getElementById("logoff_btn");
 
 function loadCurrentUser (username) {
+	loginForm.style.display = "none";
 	userInfo.style.display = "block";
     userInfo.innerHTML = `
         <h3> Hi <i>${username}</i></h3>
@@ -160,74 +163,13 @@ function loadCurrentUser (username) {
 }
 
 
-logOffBtn.onclick = function(){
-	var request = new XMLHttpRequest();
-	request.open('GET', '/logout', true);
-	request.send(null);
-}
+// logOffBtn.onclick = function(){
+// 	var request = new XMLHttpRequest();
+// 	request.open('GET', '/logout', true);
+// 	request.send(null);
+// }
 
-
-
-// User registration from register.html
-
-var registerBtn = document.getElementById('reg_btn');
-var label_msg = document.getElementById('label_msg');
-registerBtn.onclick = function(){
-   
-    // create a request object
-    var request = new XMLHttpRequest();
-    
-    request.onreadystatechange = function () {
-      if (request.readyState === XMLHttpRequest.DONE){
-        
-        if (request.status === 200){
-        	resetFields();
-            label_msg.innerHTML = 'User is successfully registered'; 
-            label_msg.style.color = "#2C3E50"; 
-        } else if (request.status === 500){
-            label_msg.innerHTML = 'Something went wrong on server. Please try again with different credentials !'; 
-            label_msg.style.color = "red";
-        }
-      }
-    };
-    
- 
-var flname =   document.getElementById("fl_name").value;
-var emailId =   document.getElementById("email_id").value;
-var username = document.getElementById("username").value;
-var password = document.getElementById("password").value;
-
-if (flname === "" || emailId === "" || username === "" || password === "") {
-	label_msg.innerHTML = "All fields are mandatory."
-	label_msg.style.color = "red";
-} else {
-		request.open('POST', '/create-user', true);
-		request.setRequestHeader('Content-Type', 'application/json');
-		request.send(JSON.stringify({'username': username, 'password': password, 'flname': flname, 'email': emailId}));
-	}
-};
-
-
-var regResetBtn = document.getElementById('reg_reset_btn');
-
-regResetBtn.onclick = function(){
-	resetFields();
-}
-
-
-// function to reset controls on webpage
-function resetFields() {
-var flname =   document.getElementById("fl_name");
-var emailId =   document.getElementById("email_id");
-var username = document.getElementById("username");
-var password = document.getElementById("password");
-
-flname.value = emailId.value = username.value = password.value = "";
-label_msg.innerHTML = "";
-
-}
-
-
+getLogin();
 
 
 /*console.log('Loaded!');

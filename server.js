@@ -125,7 +125,7 @@ function topicTemplate(topicId){
 	var heading = topicId.page_heading;
 	var content = topicId.page_content;
 
-	var webTemplate = `<html>
+/*	var webTemplate = `<html>
     <head>
         <link href="/ui/style.css" rel="stylesheet" />
         <TITLE> ${heading}</TITLE>
@@ -155,6 +155,66 @@ function topicTemplate(topicId){
         <div class="content">
         	<h2>${heading}</h2> 
 			${content}	
+        </div>  
+        <script type="text/javascript" src="/ui/main.js">
+        </script>
+    </div>
+    </body>
+</html>`*/
+
+var webTemplate = `
+<html>
+    <head>
+        <link href="/ui/style.css" rel="stylesheet" />
+        <TITLE> ${heading}</TITLE>
+    </head>
+    <body>
+        <h1>
+            Welcome to Android Tutorials point !!   
+        </h1>    
+        <div class="user-info" id="userinfo" style="display: none;">
+            <!-- <caption id="user">User</caption>
+            <input id="logoff_btn" style="float: right;" type="button" name="logoff" value="Log Out"> -->
+        </div>
+        <div class="container">
+            <a href = "/">Home</a> &nbsp; &nbsp;
+            <a href = "/about">About me</a> &nbsp; &nbsp;
+            <hr/>
+
+        <div class="left-menu" id="login_form">
+            <h3>Sign in</h3>
+                Username:
+                <input type="text" name="username" id="uid" size="15">
+
+                Password:
+                <input type="password" name="password" id="pwd" size="15"> <br/>
+
+                <a class="left-menu-link" href="/register">Register New User !!</a> <br/><br/>
+                <input type="Submit" name="submit" id="login_btn" value="Login">
+                <input type="Submit" name="reset" id="login_reset_btn" value="Reset">
+        </div>
+    
+
+        <div class="left-menu">
+        <h3>Related Topics</h3>
+            <a href="/topics/activities">Activities</a> <br/> <br/>
+            <a href="/topics/fragments">Fragments</a> <br/> <br/>
+        <!--<a href="">Widgets</a> <br/> <br/>
+            <a href="">Content Provider</a> <br/> <br/>
+            <a href="">Shared Preferences</a> <br/> <br/>
+            <a href="">Basic Layouts</a> <br/> <br/>
+            <a href="">Views</a> <br/> <br/> -->
+        </div> 
+
+        <div class="content">
+        	<h2>${heading}</h2> 
+			${content}       
+ 
+            <!--   <h2>Comments:</h2>
+            <textarea name="message" rows="8" cols="94" id="msg"></textarea>
+            <input type="Submit" name="Submit" id="msg_btn" value="Post comment"> -->
+        </p>
+
         </div>  
         <script type="text/javascript" src="/ui/main.js">
         </script>
@@ -233,7 +293,7 @@ app.get('/check-login', function (req, res) {
            if (err) {
               res.status(500).send(err.toString());
            } else {
-              res.send(result.rows[0].username);    
+              res.send(result.rows[0].first_last_name);    
            }
        });
    } else {
@@ -243,7 +303,7 @@ app.get('/check-login', function (req, res) {
 
 app.get('/logout', function (req, res){
    delete req.session.auth; 
-   res.send('Logged Out');
+   res.sendFile(path.join(__dirname, 'ui', 'home.html'));
 });
 
 app.get('/hash/:input', function (req, res){
@@ -308,6 +368,10 @@ app.get ('/register', function(req, res){
 	res.sendFile(path.join(__dirname, 'ui', 'register.html'));
 });
 
+app.get ('/about', function(req, res){
+	res.sendFile(path.join(__dirname, 'ui', 'aboutme.html'));
+});
+
 
 /*
 app.get('/article-one', function (req, res){
@@ -332,6 +396,10 @@ app.get('/ui/madi.png', function (req, res) {
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
+});
+
+app.get('/ui/register.js', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'register.js'));
 });
 
 app.get('/home', function (req, res) {

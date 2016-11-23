@@ -8,18 +8,16 @@
         <h1>
             Welcome to Android Tutorials point !!   
         </h1>    
-        <div class="user-info" id="user-info" style="display: none;">
-            <caption id="user">User</caption>
-            <input id="logoff_btn" style="float: right;" type="button" name="logoff" value="Log Out">
+        <div class="user-info" id="userinfo" style="display: none;">
+            <!-- <caption id="user">User</caption>
+            <input id="logoff_btn" style="float: right;" type="button" name="logoff" value="Log Out"> -->
         </div>
         <div class="container">
             <a href = "/">Home</a> &nbsp; &nbsp;
-            <a href = "articles/article-one">Article One</a> &nbsp; &nbsp;
-            <a href = "articles/article-two">Article Two</a> &nbsp; &nbsp;
-            <a href = "articles/article-three">Article Three</a>
+            <a href = "/about">About me</a> &nbsp; &nbsp;
             <hr/>
 
-        <div class="left-menu">
+        <div class="left-menu" id="login_form">
             <h3>Sign in</h3>
                 Username:
                 <input type="text" name="username" id="uid" size="15">
@@ -37,11 +35,11 @@
         <h3>Related Topics</h3>
             <a href="/topics/activities">Activities</a> <br/> <br/>
             <a href="/topics/fragments">Fragments</a> <br/> <br/>
-            <a href="">Widgets</a> <br/> <br/>
+     <!--        <a href="">Widgets</a> <br/> <br/>
             <a href="">Content Provider</a> <br/> <br/>
             <a href="">Shared Preferences</a> <br/> <br/>
             <a href="">Basic Layouts</a> <br/> <br/>
-            <a href="">Views</a> <br/> <br/>
+            <a href="">Views</a> <br/> <br/> -->
         </div> 
 
         <div class="content">
@@ -58,9 +56,9 @@
             When an activity is stopped because a new activity starts, it is notified of this change in state through the activity's lifecycle callback methods. There are several callback methods that an activity might receive, due to a change in its state—whether the system is creating it, stopping it, resuming it, or destroying it—and each callback provides you the opportunity to perform specific work that's appropriate to that state change. For instance, when stopped, your activity should release any large objects, such as network or database connections. When the activity resumes, you can reacquire the necessary resources and resume actions that were interrupted. These state transitions are all part of the activity lifecycle.
             </p> 
 
-            <h2>Comments:</h2>
+          <!--   <h2>Comments:</h2>
             <textarea name="message" rows="8" cols="94" id="msg"></textarea>
-            <input type="Submit" name="Submit" id="msg_btn" value="Post comment">
+            <input type="Submit" name="Submit" id="msg_btn" value="Post comment"> -->
         </p>
 
         </div>  
