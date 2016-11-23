@@ -93,7 +93,7 @@
 
 //Submit username/password to login from home page
 var loginForm = document.getElementById('login_form');
-loginForm.style.display = "display";
+
 	
 var loginBtn = document.getElementById("login_btn");
 
@@ -142,6 +142,7 @@ function getLogin () {
                 loadCurrentUser(this.responseText);
             } else {
                 userInfo.style.display = "none";
+                loginForm.style.display = "display";
             }
         }
     };
