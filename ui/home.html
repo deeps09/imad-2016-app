@@ -7,8 +7,11 @@
     <body>
         <h1>
             Welcome to Android Tutorials point !!   
-        </h1>
-
+        </h1>    
+        <div class="user-info" id="user-info" style="display: none;">
+            <caption id="user">User</caption>
+            <input id="logoff_btn" style="float: right;" type="button" name="logoff" value="Log Out">
+        </div>
         <div class="container">
             <a href = "/">Home</a> &nbsp; &nbsp;
             <a href = "articles/article-one">Article One</a> &nbsp; &nbsp;
@@ -18,18 +21,15 @@
 
         <div class="left-menu">
             <h3>Sign in</h3>
-            <form>
                 Username:
                 <input type="text" name="username" id="uid" size="15">
 
                 Password:
                 <input type="password" name="password" id="pwd" size="15"> <br/>
 
-                <a class="left-menu-link" href="/register">Register</a> <br/><br/>
-                <input type="Submit" name="submit" id="login_btn">
+                <a class="left-menu-link" href="/register">Register New User !!</a> <br/><br/>
+                <input type="Submit" name="submit" id="login_btn" value="Login">
                 <input type="Submit" name="reset" id="login_reset_btn" value="Reset">
-            </form>
-            
         </div>
     
 

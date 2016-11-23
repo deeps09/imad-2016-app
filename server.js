@@ -20,7 +20,8 @@ var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json()); // loading req.body to fetch username and password
 app.use(session({
-    secret: 'someRandomValueSecret',
+    //secret: 'someRandomValueSecret',
+    secret: 'a',
     cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}
 }));
 
@@ -214,10 +215,8 @@ app.post('/login', function (req, res){
 	           if   (hashedPassword == dbString){
 	               
 	               // Set the session
-	               req.session.auth = {userId: result.rows[0].id}
-	               
-	               
-	               res.send("Login successfull !");
+	               req.session.auth = {userId: result.rows[0].id};
+	               res.send("Successfully Logged In");
 	           } else {
 	               res.status(403).send("Username/password invalid");
 	           }
@@ -227,12 +226,19 @@ app.post('/login', function (req, res){
 });
 
 
-app.get('/check-login', function(req, res){
-    if  (req.session && req.session.auth && req.session.auth.userId){
-        res.send('You are logged in .. ' + req.session.auth.userId.toString() );
-    } else{
-        res.send('You are  not logged in .. ');
-    }
+app.get('/check-login', function (req, res) {
+   if (req.session && req.session.auth && req.session.auth.userId) {
+       // Load the user object
+       pool.query('SELECT * FROM "user" WHERE id = $1', [req.session.auth.userId], function (err, result) {
+           if (err) {
+              res.status(500).send(err.toString());
+           } else {
+              res.send(result.rows[0].username);    
+           }
+       });
+   } else {
+       res.status(400).send('You are not logged in');
+   }
 });
 
 app.get('/logout', function (req, res){
